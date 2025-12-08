@@ -13,8 +13,16 @@ const (
 	walkingCaloriesCoefficient = 0.5  // коэффициент для расчета калорий при ходьбе.
 )
 
+// WalkingSpentCalories рассчитывает калл. при ходьбе
 func WalkingSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
-	// TODO: реализовать функцию
+	if steps <= 0 || weight <= 0 || height <= 0 || duration <= 0 {
+		return 0, errors.New("Параметры должны быть положительными")
+	}
+	midSpeed := MeanSpeed(steps, height, duration)
+	durationInMinutes := duration.Minutes()
+	calories := (weight * midSpeed * durationInMinutes) / minInH
+	calories = calories * walkingCaloriesCoefficient
+	return calories, nil
 }
 
 // RunningSpentCalories рассчитывает калл. при беге
