@@ -1,6 +1,7 @@
 package spentenergy
 
 import (
+	"errors"
 	"time"
 )
 
@@ -16,11 +17,18 @@ func WalkingSpentCalories(steps int, weight, height float64, duration time.Durat
 	// TODO: реализовать функцию
 }
 
+// RunningSpentCalories рассчитывает калл. при беге
 func RunningSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
-	// TODO: реализовать функцию
+	if steps <= 0 || weight <= 0 || height <= 0 || duration <= 0 {
+		return 0, errors.New("Параметры должны быть положительными")
+	}
+	midSpeed := MeanSpeed(steps, height, duration)
+	durationInMinutes := duration.Minutes()
+	calories := (weight * midSpeed * durationInMinutes) / minInH
+	return calories, nil
 }
 
-// MeanSpeed рассчитывает среднюю скорость в км/ч
+// MeanSpeed рассчитывает среднюю скорость в км/ч.
 func MeanSpeed(steps int, height float64, duration time.Duration) float64 {
 	if duration <= 0 || steps <= 0 {
 		return 0
