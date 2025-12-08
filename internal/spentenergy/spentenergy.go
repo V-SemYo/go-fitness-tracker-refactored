@@ -20,8 +20,13 @@ func RunningSpentCalories(steps int, weight, height float64, duration time.Durat
 	// TODO: реализовать функцию
 }
 
+// MeanSpeed рассчитывает среднюю скорость в км/ч
 func MeanSpeed(steps int, height float64, duration time.Duration) float64 {
-	// TODO: реализовать функцию
+	if duration <= 0 || steps <= 0 {
+		return 0
+	}
+	distance := Distance(steps, height)
+	return distance / duration.Hours()
 }
 
 // Distance рассчитывает дистанцию в км. по кол-ву шагов и росту
