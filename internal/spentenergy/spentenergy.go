@@ -16,7 +16,7 @@ const (
 // WalkingSpentCalories рассчитывает калл. при ходьбе
 func WalkingSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
 	if steps <= 0 || weight <= 0 || height <= 0 || duration <= 0 {
-		return 0, errors.New("Параметры должны быть положительными")
+		return 0, errors.New("all parameters must be positive")
 	}
 	midSpeed := MeanSpeed(steps, height, duration)
 	durationInMinutes := duration.Minutes()
@@ -28,7 +28,7 @@ func WalkingSpentCalories(steps int, weight, height float64, duration time.Durat
 // RunningSpentCalories рассчитывает калл. при беге
 func RunningSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
 	if steps <= 0 || weight <= 0 || height <= 0 || duration <= 0 {
-		return 0, errors.New("Параметры должны быть положительными")
+		return 0, errors.New("all parameters must be positive")
 	}
 	midSpeed := MeanSpeed(steps, height, duration)
 	durationInMinutes := duration.Minutes()

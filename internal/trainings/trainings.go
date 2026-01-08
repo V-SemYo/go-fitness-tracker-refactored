@@ -22,22 +22,22 @@ type Training struct {
 func (t *Training) Parse(datastring string) (err error) {
 	parts := strings.Split(datastring, ",")
 	if len(parts) != 3 {
-		return errors.New("Не правильный формат строки, нужно 3 части!")
+		return errors.New("invalid string format, expected 3 parts")
 	}
 	steps, err := strconv.Atoi(parts[0])
 	if err != nil {
-		return errors.New("Не правильный формат количества шагов")
+		return fmt.Errorf("conversion error: %w", err)
 	}
 	if steps <= 0 {
-		return errors.New("Количество шагов должно быть положительным")
+		return errors.New("step count must be positive")
 	}
 	trainingType := parts[1]
 	duration, err := time.ParseDuration(parts[2])
 	if err != nil {
-		return errors.New("Не правильный формат продолжительности")
+		return fmt.Errorf("invalid duration format: %w", err)
 	}
 	if duration <= 0 {
-		return errors.New("Продолжительность должна быть положительной")
+		return errors.New("duration must be positive")
 	}
 	t.Steps = steps
 	t.TrainingType = trainingType

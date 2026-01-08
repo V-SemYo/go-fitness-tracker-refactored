@@ -21,21 +21,21 @@ type DaySteps struct {
 func (ds *DaySteps) Parse(datastring string) (err error) {
 	parts := strings.Split(datastring, ",")
 	if len(parts) != 2 {
-		return errors.New("Не правильный формат строки, нужно 2 части!")
+		return errors.New("invalid string format, expected 2 parts")
 	}
 	steps, err := strconv.Atoi(parts[0])
 	if err != nil {
-		return errors.New("Не правильный формат количества шагов")
+		return fmt.Errorf("conversion error: %w", err)
 	}
 	if steps <= 0 {
-		return errors.New("Количество шагов должно быть положительным")
+		return errors.New("step count must be positive")
 	}
 	duration, err := time.ParseDuration(parts[1])
 	if err != nil {
-		return errors.New("Не правильный формат продолжительности")
+		return fmt.Errorf("invalid duration format: %w", err)
 	}
 	if duration <= 0 {
-		return errors.New("Продолжительность должна быть положительной")
+		return errors.New("duration must be positive")
 	}
 	ds.Steps = steps
 	ds.Duration = duration
